@@ -1,0 +1,16 @@
+.btn-primary {
+    --bs-btn-color: #000; /* Text color (black) */
+    --bs-btn-bg: rgb(255, 165, 0); /* Background color (orange) */
+    --bs-btn-border-color: rgb(255, 165, 0); /* Border color (orange) */
+    --bs-btn-hover-color: #fff; /* Text color on hover (white) */
+    --bs-btn-hover-bg: rgb(255, 140, 0); /* Hover background color (darker orange) */
+    --bs-btn-hover-border-color: rgb(255, 140, 0); /* Hover border color */
+    --bs-btn-focus-shadow-rgb: 255, 140, 0; /* Focus shadow color (orange) */
+    --bs-btn-active-color: #fff; /* Active state text color (white) */
+    --bs-btn-active-bg: rgb(255, 120, 0); /* Active state background color (darker orange) */
+    --bs-btn-active-border-color: rgb(255, 120, 0); /* Active state border color */
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125); /* Active state shadow */
+    --bs-btn-disabled-color: #fff; /* Disabled text color (white) */
+    --bs-btn-disabled-bg: rgb(255, 165, 0); /* Disabled background color (orange) */
+    --bs-btn-disabled-border-color: rgb(255, 165, 0); /* Disabled border color (orange) */
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <title>Login to MovieReviews</title>
+    <style>
+        body {
+            background-image: url('/assets/website/loginbg.jpg'); /* Replace with your image URL */
+            background-size: cover; /* Ensure the image covers the entire background */
+            background-position: center; /* Center the background image */
+            background-attachment: fixed; /* Keep the background fixed while scrolling */
+        }
+        label {
+            color: orange;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        button {
+            background-color: orange;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="d-flex justify-content-center align-items-center vh-100 bg text-white">
+    <div class="card p-4 shadow-lg" style="width: 40rem; background-color: rgb(92, 92, 92);">
+        <p style="font-size: 3rem; color: orange; font-weight: bold; text-align: center;">Login to MovieReviews</p>
+        <form action="/login" method="POST">
+            <div class="form-group mt-2">
+                <label for="email" class="">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+            </div>
+            <div class="form-group mt-2">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3 w-100">Login</button>
+            <p class="mt-3" style="font-weight: bold; font-size: 1.5rem; color: orange; text-align: center">Don't have an account?</p>
+            <Button type="button" class="btn btn-primary w-100">Make a new one today! It's free!</Button>
+        </form>
+    </div>
+</body>
+</html>

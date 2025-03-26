@@ -1,7 +1,11 @@
 {
   "dependencies": {
     "bootstrap": "^5.3.3",
-    "pg": "^8.14.1"
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "pg": "^8.14.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.6"
   },
   "name": "moviereviews",
   "version": "1.0.0",
@@ -20,5 +24,6 @@
   "bugs": {
     "url": "https://github.com/NoxLeg3nd/MovieReviews/issues"
   },
-  "homepage": "https://github.com/NoxLeg3nd/MovieReviews#readme"
+  "homepage": "https://github.com/NoxLeg3nd/MovieReviews#readme",
+  "devDependencies": {}
 }

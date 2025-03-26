@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <title>Login to MovieReviews</title>
+    <style>
+        body {
+            background-image: url('/assets/website/loginbg.jpg'); /* Replace with your image URL */
+            background-size: cover; /* Ensure the image covers the entire background */
+            background-position: center; /* Center the background image */
+            background-attachment: fixed; /* Keep the background fixed while scrolling */
+        }
+        label {
+            color: orange;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        button {
+            background-color: orange;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="d-flex justify-content-center align-items-center vh-100 bg text-white">
+<div class="card p-4 shadow-lg" style="width: 40rem; background-color: rgb(92, 92, 92);">
+    <p style="font-size: 3rem; color: orange; font-weight: bold; text-align: center;">Create a new account</p>
+    <form action="/signup" method="POST">
+        <div class="form-group mt-2">
+            <label for="email" class="">Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+        </div>
+        <div class="form-group mt-2">
+            <label for="username" class="">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+        </div>
+        <div class="form-group mt-2">
+            <label for="user_password">Password</label>
+            <input type="password" class="form-control" id="user_password" name="password" placeholder="Enter password" required>
+        </div>
+        <div class="form-group mt-2">
+            <label for="confirm_password">Password</label>
+            <label for="confirm_password">Password</label>
+            <input type="password" class="form-control" id="confirm_password" name="password" placeholder="Confirm Password" required>
+        </div>
+        <p class="m-2 text-wrap" style="font-weight: bold; font-size: 1rem; color: orange; text-align: center">Please ensure your password is at least 8 characters long and includes a combination of letters, symbols and numbers.</p>
+        <button type="submit" class="btn btn-primary w-100">Make a new account!</button>
+    </form>
+</div>
+</body>
+</html>

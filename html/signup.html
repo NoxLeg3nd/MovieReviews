@@ -27,7 +27,7 @@
 <body class="d-flex justify-content-center align-items-center vh-100 bg text-white">
 <div class="card p-4 shadow-lg" style="width: 40rem; background-color: rgb(92, 92, 92);">
     <p style="font-size: 3rem; color: orange; font-weight: bold; text-align: center;">Create a new account</p>
-    <form action="/signup" method="POST">
+    <form action="/api/v1/signUp" method="POST">
         <div class="form-group mt-2">
             <label for="email" class="">Email</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
@@ -43,7 +43,7 @@
         <div class="form-group mt-2">
             <label for="confirm_password">Password</label>
             <label for="confirm_password">Password</label>
-            <input type="password" class="form-control" id="confirm_password" name="password" placeholder="Confirm Password" required>
+            <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
         </div>
         <p class="m-2 text-wrap" style="font-weight: bold; font-size: 1rem; color: orange; text-align: center">Please ensure your password is at least 8 characters long and includes a combination of letters, symbols and numbers.</p>
         <button type="submit" class="btn btn-primary w-100">Make a new account!</button>

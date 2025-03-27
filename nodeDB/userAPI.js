@@ -1,15 +1,21 @@
 
 //===================Import-uri=================================
 const express = require('express');
+const { Sequelize, DataTypes } = require('sequelize');
 const path = require('path');
 const { pool } = require('./user_db');
 const app = express();
+const usermodel  = require('./models/UserModel'); //PT sequlize
 const port = 3000;
 //trebuie modificat
 //================Setari Aplicatie==================================
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+//========Sequlize initialization===========================================================
+const sequelize = new Sequelize(pool.options.connectionString, {dialect: 'postgres'});
+
+sequelize.sync();
 
 
 //=======================API-uri==========================================
@@ -17,7 +23,47 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../html/signup.html'));
 })
 
-app.post('/api/v1/signUp',async (req, res) => {
+app.post('/api/v1/signUp', async (req, res) => {
+   try{
+
+       const checkUsername = await usermodel.findAll({
+           where: {
+               username: req.body.username,
+           }
+       });
+       const checkEmail = await usermodel.findAll({
+           where: {
+               email: req.body.email
+           }
+       });
+       if(checkUsername.length > 0){
+            res.status(400).json({
+               errorCode: 'USERNAME_EXISTS',
+               message: 'Username already exists'
+           });
+       }else if(checkEmail.length > 0){
+            res.status(401).json({
+               errorCode: 'EMAIL_EXISTS',
+               message: 'Email already exists'
+           });
+       }
+       let user = await usermodel.create(req.body);
+       await user.save();
+        res.sendStatus(201).json({
+           message: 'User saved successfully',
+       });
+
+   }catch (e) {
+       if(e.errorCode=== "EMAIL_EXISTS"){
+           console.error("Email already in use!");
+       }else if (e.errorCode === "USERNAME_EXISTS"){
+       console.error("User already exists!");
+       }
+   }
+
+});
+
+/*app.post('/api/v1/signUp',async (req, res) => {
     try{
         const user = {
             username: req.body.username,
@@ -48,7 +94,7 @@ app.post('/api/v1/signUp',async (req, res) => {
         res.status(401).send({'Invalid data': true});
     }
 
-})
+})*/
 
 
 //===================Server=========================

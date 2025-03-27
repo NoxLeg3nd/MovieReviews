@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-
     <link rel="stylesheet" href="/assets/css/custom.css">
     <title>Login to MovieReviews</title>
     <style>
         body {
-            background-image: url('/assets/website/loginbg.jpg'); /* Replace with your image URL */
-            background-size: cover; /* Ensure the image covers the entire background */
-            background-position: center; /* Center the background image */
-            background-attachment: fixed; /* Keep the background fixed while scrolling */
+            background-image: url('/assets/website/loginbg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
         label {
             color: orange;
@@ -23,18 +22,27 @@
             background-color: orange;
             font-weight: bold;
         }
+        .error-message {
+            color: red;
+            font-weight: bold;
+            text-align: center;
+        }
     </style>
 </head>
 <body class="d-flex justify-content-center align-items-center vh-100 bg text-white">
 <div class="card p-4 shadow-lg" style="width: 40rem; background-color: rgb(92, 92, 92);">
     <p style="font-size: 3rem; color: orange; font-weight: bold; text-align: center;">Create a new account</p>
-    <form action="/api/v1/signUp" method="POST">
+
+    <!-- Error message container -->
+    <div id="error-message" class="error-message" style="display: none;"></div>
+
+    <form id="signupForm">
         <div class="form-group mt-2">
-            <label for="email" class="">Email</label>
+            <label for="email">Email</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
         </div>
         <div class="form-group mt-2">
-            <label for="username" class="">Username</label>
+            <label for="username">Username</label>
             <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
         </div>
         <div class="form-group mt-2">
@@ -42,16 +50,70 @@
             <input type="password" class="form-control" id="user_password" name="password" placeholder="Enter password" required>
         </div>
         <div class="form-group mt-2">
-            <label for="confirm_password">Password</label>
-            <label for="confirm_password">Password</label>
+            <label for="confirm_password">Confirm Password</label>
             <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
         </div>
-        <p class="m-2 text-wrap" style="font-weight: bold; font-size: 1rem; color: orange; text-align: center">Please ensure your password is at least 8 characters long and includes a combination of letters, symbols and numbers.</p>
+        <p class="m-2 text-wrap" style="font-weight: bold; font-size: 1rem; color: orange; text-align: center">Please ensure your password is at least 8 characters long and includes a combination of letters, symbols, and numbers.</p>
         <button type="submit" class="btn btn-primary w-100">Make a new account!</button>
     </form>
 </div>
 
-<script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+<!-- JavaScript -->
+<script>
+    document.getElementById('signupForm').addEventListener('submit', async function (e) {
+        e.preventDefault(); // Prevent default form submission
 
+        // Get form data
+        const email = document.getElementById('email').value;
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('user_password').value;
+        const confirmPassword = document.getElementById('confirm_password').value;
+
+        // Basic form validation
+        if (password !== confirmPassword) {
+            showError('Passwords do not match.');
+            return;
+        }
+
+        // Prepare data for POST request
+        const data = {
+            email,
+            username,
+            password
+        };
+
+        try {
+            // Send the POST request
+            const response = await fetch('/api/v1/signUp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            // Handle the response
+            const result = await response.json();
+
+            if (response.status === 201) {
+                // Account created successfully, you can redirect or display a success message
+                window.location.href = '/'; // Redirect to homepage or login page
+            } else {
+                // Show error message if any
+                showError(result.error || 'Something went wrong, please try again.');
+            }
+        } catch (e) {
+            console.error(e);
+            showError('An unexpected error occurred. Please try again later.');
+        }
+    });
+
+    // Function to show error messages
+    function showError(message) {
+        const errorMessageElement = document.getElementById('error-message');
+        errorMessageElement.textContent = message;
+        errorMessageElement.style.display = 'block'; // Show error message
+    }
+</script>
+</body>
 </html>

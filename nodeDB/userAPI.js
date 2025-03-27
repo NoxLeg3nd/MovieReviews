@@ -11,7 +11,6 @@ const port = 3000;
 //================Setari Aplicatie==================================
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 //========Sequlize initialization===========================================================
 const sequelize = new Sequelize(pool.options.connectionString, {dialect: 'postgres'});
 
@@ -24,68 +23,38 @@ app.get('/', (req, res) => {
 })
 
 app.post('/api/v1/signUp', async (req, res) => {
-   try{
-       const {username , email , password} = req.body;
-       if(!username || !email || !password){
-           return res.status(403).send('Username and password are required');
-       }
-       const checkUsername = await usermodel.findAll({
-           where: {
-               username: req.body.username,
-           }
-       });
-       const checkEmail = await usermodel.findAll({
-           where: {
-               email: req.body.email
-           }
-       });
+    try {
+        const { username, email, password } = req.body;
+        if (!username || !email || !password) {
+            return res.status(403).json({ error: 'Username and password are required' });
+        }
 
-       if(checkUsername.length > 0){
-           return res.status(400).send("Username is already taken!")
-       }else if(checkEmail.length > 0){
-           return res.status(401).send("Email is already taken!");
-       }
-       let user = await usermodel.create(req.body);
-       await user.save();
-       return res.sendStatus(201).send(user);
+        const checkUsername = await usermodel.findAll({
+            where: { username: req.body.username },
+        });
+        const checkEmail = await usermodel.findAll({
+            where: { email: req.body.email }
+        });
 
-   }catch (e) {
-       console.log("e = " + e.message);
-   }
+        if (checkUsername.length > 0) {
+            return res.status(400).json({ error: "Username is already taken!" });
+        } else if (checkEmail.length > 0) {
+            return res.status(401).json({ error: 'Email is already taken!' });
+        }
+
+        // Create and save the user
+        let user = await usermodel.create(req.body);  // This automatically saves the user
+
+        // Send the response with JSON message only
+        return res.status(201).json({ message: 'User created successfully.', user });
+    } catch (e) {
+        console.log("Error:", e.message);
+        return res.status(500).json({ error: 'Something went wrong. Please try again.' });
+    }
 });
 
-/*app.post('/api/v1/signUp',async (req, res) => {
-    try{
-        const user = {
-            username: req.body.username,
-            email : req.body.email,
-            password: req.body.password,
-        }
-        console.log(user);
-        const checkEmail = pool.query('Select email from user_table where email = $1 ', [user.email]);
-        const checkUsername = pool.query('Select username from user_table where username = $1 ', [user.username]);
-        if(req.body.email === checkEmail) {
-            return res.status(400).json({ error: 'Email already taken' });
-        } else if ( req.body.username === checkUsername){
-            return res.status(402).json({ error: 'Email already taken' });
-        }
-
-        const insertQuery = 'INSERT INTO user_table (username,email, password) VALUES ($1, $2,$3) RETURNING *';
-        const insertValues = [req.body.username,req.body.email, req.body.password, ];
-        const insertResult = await pool.query(insertQuery, insertValues);
 
 
-        res.status(201).json({
-            message: 'User registered successfully',
-            user: insertResult.rows[0], // Return the user object (without password)
-        });
-    }
-    catch(e){
-        console.error(e);
-        res.status(401).send({'Invalid data': true});
-    }
-
-})*/
 
 
 //===================Server=========================

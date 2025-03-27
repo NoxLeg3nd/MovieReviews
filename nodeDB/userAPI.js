@@ -11,6 +11,8 @@ const port = 3000;
 //================Setari Aplicatie==================================
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/assets', express.static(path.join(__dirname, '../assets')));
+
 //========Sequlize initialization===========================================================
 const sequelize = new Sequelize(pool.options.connectionString, {dialect: 'postgres'});
 
@@ -19,7 +21,7 @@ sequelize.sync();
 
 //=======================API-uri==========================================
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../html/signup.html'));
+    res.sendFile(path.join(__dirname, '../html/login.html'));
 })
 
 app.post('/api/v1/signUp', async (req, res) => {

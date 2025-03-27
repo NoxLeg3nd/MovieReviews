@@ -1,6 +1,5 @@
 require('dotenv').config({path: '../.env'});
 
-
 const { Pool } = require('pg'); // Import Pool from pg instead of Client
 
 // Set up the Pool with environment variables

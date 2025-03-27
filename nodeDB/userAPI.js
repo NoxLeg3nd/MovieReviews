@@ -25,7 +25,10 @@ app.get('/', (req, res) => {
 
 app.post('/api/v1/signUp', async (req, res) => {
    try{
-
+       const {username , email , password} = req.body;
+       if(!username || !email || !password){
+           return res.status(403).send('Username and password are required');
+       }
        const checkUsername = await usermodel.findAll({
            where: {
                username: req.body.username,
@@ -36,31 +39,19 @@ app.post('/api/v1/signUp', async (req, res) => {
                email: req.body.email
            }
        });
+
        if(checkUsername.length > 0){
-            res.status(400).json({
-               errorCode: 'USERNAME_EXISTS',
-               message: 'Username already exists'
-           });
+           return res.status(400).send("Username is already taken!")
        }else if(checkEmail.length > 0){
-            res.status(401).json({
-               errorCode: 'EMAIL_EXISTS',
-               message: 'Email already exists'
-           });
+           return res.status(401).send("Email is already taken!");
        }
        let user = await usermodel.create(req.body);
        await user.save();
-        res.sendStatus(201).json({
-           message: 'User saved successfully',
-       });
+       return res.sendStatus(201).send(user);
 
    }catch (e) {
-       if(e.errorCode=== "EMAIL_EXISTS"){
-           console.error("Email already in use!");
-       }else if (e.errorCode === "USERNAME_EXISTS"){
-       console.error("User already exists!");
-       }
+       console.log("e = " + e.message);
    }
-
 });
 
 /*app.post('/api/v1/signUp',async (req, res) => {

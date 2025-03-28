@@ -55,9 +55,32 @@ app.post('/api/v1/signUp', async (req, res) => {
     }
 });
 
-
-
-
+app.post('/api/v1/login', async (req, res) => {
+    try {
+        const {email , password} = req.body;
+        if(!email || !password) {
+            return res.status(405).send('Email and password are required');
+        }
+        const checkEmail = await usermodel.findAll({
+            where: {
+                email: req.body.email,
+            }
+        });
+        const checkPassword = await usermodel.findAll({
+            where: {
+                password: req.body.password,
+            }
+        });
+        if(checkEmail.length === 0 || checkPassword.length === 0) {
+            return res.status(406).send("Email or password are incorrect!");
+        }
+        if(checkEmail.length > 0 && checkPassword.length > 0){
+            return res.status(200).send("Email and password are correct!");
+        }
+    } catch (e) {
+        console.log("e = " + e.message);
+    }
+})
 
 //===================Server=========================
 app.listen(port, () => {

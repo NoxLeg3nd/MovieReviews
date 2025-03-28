@@ -35,7 +35,7 @@ document.getElementById('signupForm').addEventListener('submit', async function 
 
         if (response.status === 201) {
             // Account created successfully, you can redirect or display a success message
-            window.location.href = '/'; // Redirect to homepage or login page
+            window.location.href = '../login.html'; // Redirect to homepage or login page
         } else {
             // Show error message if any
             showError(result.error || 'Something went wrong, please try again.');

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <style>
+        .nav-link {
+            font-weight: bold;
+            color: orange !important;
+            cursor: pointer;
+            margin-right: 1rem;
+            align-items: start;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: orange !important;
+        }
+    </style>
+    <title>MovieReviews</title>
+</head>
+<body onload="loadPage('home.html')">
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="../assets/website/logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+                MovieReviews
+            </a>
+            <ul class="nav ">
+                <li class="nav-item"><a class="nav-link text-white" href="#" onclick="loadPage('home.html')">Acasă</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="#" onclick="loadPage('about.html')">Despre</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="#" onclick="loadPage('contact.html')">Contact</a></li>
+            </ul>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2 ba" type="search" placeholder="Search" aria-label="Search" style="width: 200px">
+                <button class="btn btn-primary" type="submit">
+                    <img src="../assets/website/Looking_Glass.png" alt="Search" width="20" height="20">
+                </button>
+            </form>
+        </div>
+    </nav>
+    <div id="content"></div>
+    <script>
+        function loadPage(page) {
+            fetch(page)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('content').innerHTML = data;
+                })
+                .catch(error => console.error('Eroare la încărcarea paginii:', error));
+        }
+    </script>
+</body>
+</html>

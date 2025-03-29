@@ -6,8 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
 
-        const bp = document.getElementsByName("redirect-signup").onclick = function () {window.location.href = "../html/signup.html";};
-
         // Clear previous error messages (if any)
         clearError();
 
@@ -39,11 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
             showError("An unexpected error occurred. Please try again later.");
         }
     });
-    function redirectToSignup(){
-        document.getElementsByName("redirect-signup").onclick = function () {
-            window.location.href = "../html/index.html";
-        }
-    }
+
     // Function to display the error message in red text
     function showError(message) {
         const errorMessageElement = document.getElementById("error-message");

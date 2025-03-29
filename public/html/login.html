@@ -49,10 +49,15 @@
         </div>
         <button type="submit" class="btn btn-primary mt-3 w-100">Login</button>
         <p class="mt-3" style="font-weight: bold; font-size: 1.5rem; color: orange; text-align: center">Don't have an account?</p>
-        <button type="button" name= "redirect-signup" onclick="redirectToSignup()" class="btn btn-primary w-100" >Make a new one today! It's free!</button>
+        <button type="button" id="redirect-signup" class="btn btn-primary w-100" >Make a new one today! It's free!</button>
     </form>
 </div>
 
 <script src="/scripts/login.js"></script>
+<script>
+    document.getElementById('redirect-signup').addEventListener('click', function() {
+        window.location.href = '../html/signup.html';
+    });
+</script>
 </body>
 </html>

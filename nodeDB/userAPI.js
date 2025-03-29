@@ -12,6 +12,7 @@ const port = 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/assets', express.static(path.join(__dirname, '../assets')));
+app.use(express.static(path.join(__dirname, '..','public')));
 
 //========Sequlize initialization===========================================================
 const sequelize = new Sequelize(pool.options.connectionString, {dialect: 'postgres'});
@@ -21,8 +22,8 @@ sequelize.sync();
 
 //=======================API-uri==========================================
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../html/login.html'));
-})
+    res.sendFile(path.join(__dirname, '../public', 'html', 'login.html'));  // Fixed the path
+});
 
 app.post('/api/v1/signUp', async (req, res) => {
     try {
@@ -59,7 +60,7 @@ app.post('/api/v1/login', async (req, res) => {
     try {
         const {email , password} = req.body;
         if(!email || !password) {
-            return res.status(405).send('Email and password are required');
+            return res.status(405).json({ error : 'Email and password are required' });
         }
         const checkEmail = await usermodel.findAll({
             where: {
@@ -72,10 +73,10 @@ app.post('/api/v1/login', async (req, res) => {
             }
         });
         if(checkEmail.length === 0 || checkPassword.length === 0) {
-            return res.status(406).send("Email or password are incorrect!");
+            return res.status(406).json({ error : "Email or password are incorrect!"});
         }
         if(checkEmail.length > 0 && checkPassword.length > 0){
-            return res.status(200).send("Email and password are correct!");
+            return res.status(200).json({message : "Email and password are correct!"});
         }
     } catch (e) {
         console.log("e = " + e.message);

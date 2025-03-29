@@ -26,6 +26,7 @@
             color: red;
             font-weight: bold;
             text-align: center;
+            margin-bottom: 1rem;
         }
     </style>
 </head>
@@ -33,10 +34,10 @@
 <div class="card p-4 shadow-lg" style="width: 40rem; background-color: rgb(92, 92, 92);">
     <p style="font-size: 3rem; color: orange; font-weight: bold; text-align: center;">Create a new account</p>
 
-    <!-- Error message container -->
+    <!-- Error message container (placed above the form) -->
     <div id="error-message" class="error-message" style="display: none;"></div>
 
-    <form id="signupForm">
+    <form id="signupForm" method="post" action='api/v1/signUp'>
         <div class="form-group mt-2">
             <label for="email">Email</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
@@ -58,62 +59,8 @@
     </form>
 </div>
 
-<!-- JavaScript -->
-<script>
-    document.getElementById('signupForm').addEventListener('submit', async function (e) {
-        e.preventDefault(); // Prevent default form submission
+<!-- Import external script -->
+<script src="/scripts/signup.js"></script>
 
-        // Get form data
-        const email = document.getElementById('email').value;
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('user_password').value;
-        const confirmPassword = document.getElementById('confirm_password').value;
-
-        // Basic form validation
-        if (password !== confirmPassword) {
-            showError('Passwords do not match.');
-            return;
-        }
-
-        // Prepare data for POST request
-        const data = {
-            email,
-            username,
-            password
-        };
-
-        try {
-            // Send the POST request
-            const response = await fetch('/api/v1/signUp', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
-
-            // Handle the response
-            const result = await response.json();
-
-            if (response.status === 201) {
-                // Account created successfully, you can redirect or display a success message
-                window.location.href = 'login.html'; // Redirect to homepage or login page
-            } else {
-                // Show error message if any
-                showError(result.error || 'Something went wrong, please try again.');
-            }
-        } catch (e) {
-            console.error(e);
-            showError('An unexpected error occurred. Please try again later.');
-        }
-    });
-
-    // Function to show error messages
-    function showError(message) {
-        const errorMessageElement = document.getElementById('error-message');
-        errorMessageElement.textContent = message;
-        errorMessageElement.style.display = 'block'; // Show error message
-    }
-</script>
 </body>
 </html>

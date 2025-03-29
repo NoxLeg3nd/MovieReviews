@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
 
-
+        const bp = document.getElementsByName("redirect-signup").onclick = function () {window.location.href = "../html/signup.html";};
 
         // Clear previous error messages (if any)
         clearError();

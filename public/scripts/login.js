@@ -39,7 +39,11 @@ document.addEventListener("DOMContentLoaded", function () {
             showError("An unexpected error occurred. Please try again later.");
         }
     });
-
+    function redirectToSignup(){
+        document.getElementsByName("redirect-signup").onclick = function () {
+            window.location.href = "../html/index.html";
+        }
+    }
     // Function to display the error message in red text
     function showError(message) {
         const errorMessageElement = document.getElementById("error-message");

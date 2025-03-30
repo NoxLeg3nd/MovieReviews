@@ -12,8 +12,8 @@ CREATE TABLE user_table (
     password VARCHAR(255)
 );
 
-Pasi pentru rularea aplicației:
-- Se va crea un fișier .env care va conține connection-string-ul bazei de date de ex : URL=postgres://username:password@localhost:5432/database_name
+Pași pentru rularea aplicației:
+- Se va crea un fișier .env care va conține connection-string-ul bazei de date, de exemplu: URL=postgres://username:password@localhost:5432/database_name
 - Se va rula userAPI.js (acesta se află în node_DB) pentru pornirea server-ului pe portul 3000
 - Se va accesa în browser http://localhost:3000
 
